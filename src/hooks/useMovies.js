@@ -1,22 +1,13 @@
 import { useState } from "react";
-
-const API_KEY = "9d3a3bfe";
-const MOVIE_ENDPOINT = `http://www.omdbapi.com/?apikey=${API_KEY}`;
+import { searchMovies } from "../services/movies";
 
 export function useMovies({ search }) {
-  const [responseMovies, setResponseMovies] = useState([]);
+  const [movies, setMovies] = useState([]);
 
-  const getMovies = () => {
-    if (search) {
-      fetch(`${MOVIE_ENDPOINT}&s=${search}`)
-        .then((res) => res.json())
-        .then((data) => {
-          const { Search: results } = data;
-          setResponseMovies(results);
-        });
-    }
-
+  const getMovies = async () => {
+    const movies = await searchMovies({search})
+    setMovies(movies)
   };
   
-  return { getMovies, responseMovies };
+  return { getMovies, movies };
 }
