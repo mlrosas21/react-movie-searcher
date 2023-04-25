@@ -5,7 +5,7 @@ import { useMovies } from "./hooks/useMovies";
 
 function App() {
   const { search, setSearch, error } = useSearch();
-  const { getMovies, movies } = useMovies({search});
+  const { getMovies, movies, loading: moviesLoading } = useMovies({search});
   // const inputRef = useRef(); // <- no tan recomendado, porque se ensucia al tratar varios inputs 
 
   const handleChange = (event) => {
@@ -14,7 +14,7 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    getMovies()
+    getMovies();
 
     // useRef() --- No controlada
     //const value = inputRef.current.value;
@@ -33,7 +33,7 @@ function App() {
     <>
       <header>
         <form onSubmit={handleSubmit}>
-          <h2>Buscador de peliculas</h2>
+          <h1>Buscador de peliculas</h1>
           <input
             name="query"
             value={search}
@@ -50,7 +50,7 @@ function App() {
       <main>
         {error && <h4>{error}</h4>}
 
-        {movies && <MovieList movies={movies} />}
+        {moviesLoading ? <p>Cargando películas...</p> : <MovieList movies={movies} />}
       </main>
     </>
   );
