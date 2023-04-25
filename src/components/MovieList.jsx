@@ -7,9 +7,9 @@ const MovieList = ({ movies }) => {
       {movies.map((movie) => {
         return (
           <div className="movie" key={movie.imdbID}>
-            <h2>{movie.Title}</h2>
-            <h4>{movie.Year}</h4>
-            <img src={movie.Poster} alt="Movie's poster" />
+            <h3>{movie.title}</h3>
+            <h4>{movie.year}</h4>
+            <img src={movie.img} alt="Movie's poster" />
           </div>
         );
       })}

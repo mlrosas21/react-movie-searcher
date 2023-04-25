@@ -5,10 +5,8 @@ import { useMovies } from "./hooks/useMovies";
 
 function App() {
   const { search, setSearch, error } = useSearch();
-  const { getMovies, responseMovies } = useMovies({search});
-  // const inputRef = useRef(); // <- no tan recomendado, porque se ensucia al tratar varios inputs
-
-  // 
+  const { getMovies, movies } = useMovies({search});
+  // const inputRef = useRef(); // <- no tan recomendado, porque se ensucia al tratar varios inputs 
 
   const handleChange = (event) => {
     setSearch(event.target.value);
@@ -52,7 +50,7 @@ function App() {
       <main>
         {error && <h4>{error}</h4>}
 
-        {responseMovies && <MovieList movies={responseMovies} />}
+        {movies && <MovieList movies={movies} />}
       </main>
     </>
   );
