@@ -1,10 +1,8 @@
 const MovieList = ({ movies }) => {
 
-  console.log(movies);
-
   return (
     <section className="movieList">
-      {movies.map((movie) => {
+      {movies?.map((movie) => {
         return (
           <div className="movie" key={movie.imdbID}>
             <h3>{movie.title}</h3>
@@ -17,4 +15,12 @@ const MovieList = ({ movies }) => {
   );
 };
 
-export default MovieList;
+const NoResults = () => {
+  return <p>No se encontraron películas para estos términos</p>;
+};
+
+export function Movies({ movies }) {
+  const hasMovies = movies?.length > 0;
+
+  return hasMovies ? <MovieList movies={movies} /> : <NoResults />;
+}
