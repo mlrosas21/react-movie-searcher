@@ -1,4 +1,4 @@
-import { useState, useRef, useMemo } from "react";
+import { useState, useRef, useMemo, useCallback } from "react";
 import { searchMovies } from "../services/movies";
 
 export function useMovies({ search, sort }) {
@@ -9,23 +9,21 @@ export function useMovies({ search, sort }) {
   // Evitar búsqueda duplicada
   const prevSearch = useRef(search);
 
-  const getMovies = useMemo(() => {
-    return async (search) => {
-      // Evitar búsqueda duplicada
-      if (search === prevSearch.current) return;
+  const getMovies = useCallback(async (search) => {
+    // Evitar búsqueda duplicada
+    if (search === prevSearch.current) return;
 
-      try {
-        setLoading(true);
-        setError(null);
-        prevSearch.current = search;
-        const movies = await searchMovies({ search });
-        setMovies(movies);
-      } catch (err) {
-        setError(err);
-      } finally {
-        setLoading(false);
-      }
-    };
+    try {
+      setLoading(true);
+      setError(null);
+      prevSearch.current = search;
+      const movies = await searchMovies({ search });
+      setMovies(movies);
+    } catch (err) {
+      setError(err);
+    } finally {
+      setLoading(false);
+    }
   }, []);
 
   const sortedMovies = useMemo(() => {
