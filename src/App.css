@@ -1,6 +1,10 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
 #root {
   width: 100%;
-  margin: 0 auto;
   padding: 2rem;
   text-align: center;
 }
@@ -43,6 +47,21 @@
 
 main{
   width: 100%;
+}
+
+header{
+  display: flex;
+  justify-content: center;
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 75%;
+  gap: 1rem;
+  margin: 1rem;
 }
 
 .movieList{
