@@ -9,27 +9,31 @@ export function useMovies({ search, sort }) {
   // Evitar búsqueda duplicada
   const prevSearch = useRef(search);
 
-  const getMovies = async () => {
-    // Evitar búsqueda duplicada
-    if(search === prevSearch.current) return
+  const getMovies = useMemo(() => {
+    return async (search) => {
+      // Evitar búsqueda duplicada
+      if (search === prevSearch.current) return;
 
-    try {
-      setLoading(true);
-      setError(null);
-      prevSearch.current = search
-      const movies = await searchMovies({ search });
-      setMovies(movies);
-    } catch (err) {
-      setError(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+      try {
+        setLoading(true);
+        setError(null);
+        prevSearch.current = search;
+        const movies = await searchMovies({ search });
+        setMovies(movies);
+      } catch (err) {
+        setError(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+  }, []);
 
   const sortedMovies = useMemo(() => {
     console.log(movies);
-    return sort ? [...movies].sort((a,b) => a.title.localeCompare(b.title)) : movies
-  }, [sort, movies])
+    return sort
+      ? [...movies].sort((a, b) => a.title.localeCompare(b.title))
+      : movies;
+  }, [sort, movies]);
 
-  return { getMovies, movies: sortedMovies , error, loading };
+  return { getMovies, movies: sortedMovies, error, loading };
 }

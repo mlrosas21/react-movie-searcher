@@ -2,7 +2,7 @@ import "./App.css";
 import { useSearch } from "./hooks/useSearch";
 import { useMovies } from "./hooks/useMovies";
 import { Movies } from "./components/Movies";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function App() {
   const [sort, setSort] = useState(false);
@@ -16,7 +16,7 @@ function App() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    getMovies();
+    getMovies(search);
 
     // useRef() --- No controlada
     //const value = inputRef.current.value;

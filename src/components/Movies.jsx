@@ -1,5 +1,4 @@
 const MovieList = ({ movies }) => {
-
   return (
     <section className="movieList">
       {movies?.map((movie) => {
