@@ -11,7 +11,9 @@ function App() {
   // const inputRef = useRef(); // <- no tan recomendado, porque se ensucia al tratar varios inputs
 
   const handleChange = (event) => {
-    setSearch(event.target.value);
+    const newSearch = event.target.value 
+    setSearch(newSearch);
+    getMovies(newSearch)
   };
 
   const handleSubmit = (e) => {
